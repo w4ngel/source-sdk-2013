@@ -117,7 +117,10 @@ bool		g_bNoDetailLighting = false;
 double		g_flStartTime;
 bool		g_bStaticPropLighting = false;
 bool        g_bStaticPropPolys = false;
+bool		g_bAllowDX90VTX = false;
+bool		g_bIgnoreModelVersions = false;
 bool        g_bTextureShadows = false;
+bool		g_bAllowDynamicPropsAsStatic = false;
 bool        g_bDisablePropSelfShadowing = false;
 
 
@@ -2388,6 +2391,18 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 		{
 			g_bStaticPropPolys = true;
 		}
+		else if (!Q_stricmp(argv[i], "-AllowDX90VTX"))
+		{
+			g_bAllowDX90VTX = true;
+		}
+		else if (!Q_stricmp(argv[i], "-IgnoreModelVersions"))
+		{
+			g_bIgnoreModelVersions = true;
+		}
+		else if (!Q_stricmp(argv[i], "-AllowDynamicPropsAsStatic"))
+		{
+			g_bAllowDynamicPropsAsStatic = true;
+		}
 		else if ( !Q_stricmp( argv[i], "-nossprops" ) )
 		{
 			g_bDisablePropSelfShadowing = true;
@@ -2849,6 +2864,11 @@ void PrintUsage( int argc, char **argv )
 		"                          light across a wider area.\n"
         "  -StaticPropLighting   : generate backed static prop vertex lighting\n"
         "  -StaticPropPolys   : Perform shadow tests of static props at polygon precision\n"
+		"  -AllowDX90VTX	  : Allow usage of .dx90.vtx files\n"
+		"  -IgnoreModelVersions  : Ignore .MDL and .VTX versions when loading models\n"
+		"  -AllowDynamicPropsAsStatic  : Allow all models with the 'static' flag in the\n"
+		"							    model viewer to be used on prop_static, even when\n"
+		"							    their propdata doesn't contain 'allowstatic'.\n"
         "  -OnlyStaticProps   : Only perform direct static prop lighting (vrad debug option)\n"
 		"  -StaticPropNormals : when lighting static props, just show their normal vector\n"
 		"  -textureshadows : Allows texture alpha channels to block light - rays intersecting alpha surfaces will sample the texture\n"
