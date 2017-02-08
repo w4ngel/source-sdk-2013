@@ -985,7 +985,7 @@ int RunVBSP( int argc, char **argv )
 			Msg ("nodetail = true\n");
 			nodetail = true;
 		}
-		else if (!Q_stricmp(argv[i]), "-nodefaultcubemap")
+		else if (!Q_stricmp(argv[i], "-nodefaultcubemap"))
 		{
 			Msg("nodefaultcubemap = true\n");
 			nodefaultcubemap = true;
