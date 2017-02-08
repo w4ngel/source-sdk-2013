@@ -20,6 +20,14 @@ ipch
 *.vcxproj
 *.sln
 
+*.filters
+*.vpc_crc
+*.bat
+*.sentinel
+vc120.pdb
+notes.txt
+unsuccessfulbuild
+
 # OSX/Linux build products
 *.mak
 *.mak.vpc_crc
