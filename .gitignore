@@ -62,3 +62,7 @@ config.cfg
 # shader files
 *.tmp
 
+*.lib
+*.pdb
+*.exe
+*.dll
