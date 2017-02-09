@@ -2393,14 +2393,17 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 		}
 		else if (!Q_stricmp(argv[i], "-AllowDX90VTX"))
 		{
+			Msg("AllowDX90VTX = true\n");
 			g_bAllowDX90VTX = true;
 		}
 		else if (!Q_stricmp(argv[i], "-IgnoreModelVersions"))
 		{
+			Msg("IgnoreModelVersions = true\n");
 			g_bIgnoreModelVersions = true;
 		}
 		else if (!Q_stricmp(argv[i], "-AllowDynamicPropsAsStatic"))
 		{
+			Msg("AllowDynamicPropsAsStatic = true\n");
 			g_bAllowDynamicPropsAsStatic = true;
 		}
 		else if ( !Q_stricmp( argv[i], "-nossprops" ) )
