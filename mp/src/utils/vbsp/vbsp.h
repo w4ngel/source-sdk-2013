@@ -416,8 +416,8 @@ void	CreateBrush (int brushnum);
 // detail objects
 //=============================================================================
 
-void AddDetailBlocker( entity_t *pFuncDetailBlocker );
-void LoadEmitDetailObjectDictionary( char const* pGameDir );
+void AddDetailBlocker(entity_t *pFuncDetailBlocker); 
+void LoadEmitDetailObjectDictionary(char const* pGameDir);
 void EmitDetailObjects();
 
 //=============================================================================
@@ -610,7 +610,8 @@ void SaveVertexNormals( void );
 
 //=============================================================================
 // cubemap.cpp
-void Cubemap_InsertSample( const Vector& origin, int size );
+extern char* g_pParallaxObbStrs[MAX_MAP_CUBEMAPSAMPLES];
+void Cubemap_InsertSample(const Vector& origin, int size, char* pParallaxObbStr);
 void Cubemap_CreateDefaultCubemaps( void );
 void Cubemap_SaveBrushSides( const char *pSideListStr );
 void Cubemap_FixupBrushSidesMaterials( void );

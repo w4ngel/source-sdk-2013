@@ -306,26 +306,26 @@ static CUtlVector<bspbrush_t *> g_DetailBlockers;
 // being placed inside them
 //-----------------------------------------------------------------------------
 void AddDetailBlocker(entity_t *pFuncDetailBlocker)
-{
+ {
 	Vector clipMins, clipMaxs;
 	clipMins[0] = clipMins[1] = clipMins[2] = MIN_COORD_INTEGER;
 	clipMaxs[0] = clipMaxs[1] = clipMaxs[2] = MAX_COORD_INTEGER;
-
-	int startBrushIndex = pFuncDetailBlocker->firstbrush;
+	
+		int startBrushIndex = pFuncDetailBlocker->firstbrush;
 	int endBrushIndex = pFuncDetailBlocker->firstbrush + pFuncDetailBlocker->numbrushes;
-
-	for (int i = startBrushIndex; i < endBrushIndex; i++)
-	{
-		// FIXME: Is there a neater way of getting each brush of the entity?
-		bspbrush_t *pBlockerBrush = MakeBspBrushList(i, i + 1, clipMins, clipMaxs, NO_DETAIL);
-
-		g_DetailBlockers.AddToTail(pBlockerBrush);
-	}
-
-	// Clear out this entity so it won't get written to the bsp
-	pFuncDetailBlocker->epairs = NULL;
+	
+		for (int i = startBrushIndex; i < endBrushIndex; i++)
+		 {
+			// FIXME: Is there a neater way of getting each brush of the entity?
+			bspbrush_t *pBlockerBrush = MakeBspBrushList(i, i + 1, clipMins, clipMaxs, NO_DETAIL);
+		
+			g_DetailBlockers.AddToTail(pBlockerBrush);
+		}
+	
+			// Clear out this entity so it won't get written to the bsp
+		pFuncDetailBlocker->epairs = NULL;
 	pFuncDetailBlocker->numbrushes = 0;
-}
+	}
 
 
 //-----------------------------------------------------------------------------
@@ -333,31 +333,30 @@ void AddDetailBlocker(entity_t *pFuncDetailBlocker)
 // specified position
 //-----------------------------------------------------------------------------
 bool IsDetailBlocked(Vector pt)
-{
+ {
 	for (int i = g_DetailBlockers.Count(); --i >= 0;)
-	{
+		 {
 		if (!IsPointInBox(pt, g_DetailBlockers[i]->mins, g_DetailBlockers[i]->maxs))
-			continue;
-
-		bool isInsideBrush = true;
+			 continue;
+		
+			bool isInsideBrush = true;
 		for (int j = 0; j < g_DetailBlockers[i]->numsides; j++)
-		{
+			 {
 			int planeIndex = g_DetailBlockers[i]->sides[j].planenum;
 			plane_t *pPlane = &g_MainMap->mapplanes[planeIndex];
-
-			Vector normal = pPlane->normal;
+			
+				Vector normal = pPlane->normal;
 			Vector diff = pt - (pPlane->normal * pPlane->dist);
-
-			vec_t dot = DotProduct(diff, normal);
-
-			if (dot > 0)
-				isInsideBrush = false;
-		}
-
-		if (isInsideBrush)
+			
+				vec_t dot = DotProduct(diff, normal);
+			
+				if (dot > 0)
+				 isInsideBrush = false;
+			}
+		
+			if (isInsideBrush)
 			return true;
-	}
-
+		}
 	return false;
 }
 
@@ -562,9 +561,9 @@ static void AddDetailSpriteToLump( const Vector &vecOrigin, const QAngle &vecAng
 	// Insert an element into the object dictionary if it aint there...
 	int i = s_DetailObjectLump.AddToTail( );
 
-	if (i >= 65535)
+	if (i >= MAX_MAP_DETAILPROPS)
 	{
-		Error( "Error! Too many detail props emitted on this map! (64K max!)n" );
+		Error("Error! Too many detail props emitted on this map! (%d max!)\n", MAX_MAP_DETAILPROPS);
 	}
 
 	DetailObjectLump_t& objectLump = s_DetailObjectLump[i];
@@ -755,7 +754,7 @@ static void EmitDetailObjectsOnFace( dface_t* pFace, DetailObject_t& detail )
 			VectorDivide( areaVec, -normalLength, normal );
 
 			// Make sure that we're allowed to place a detail here
-			if ( IsDetailBlocked( pt ) )
+			if (IsDetailBlocked(pt))
 				continue;
 
 			PlaceDetail( detail.m_Groups[group].m_Models[model], pt, normal );
@@ -828,7 +827,7 @@ static void EmitDetailObjectsOnDisplacementFace( dface_t* pFace,
 		alpha /= 255.0f;
 
 		// Make sure that we're allowed to place a detail here
-		if ( IsDetailBlocked( pt ) )
+		if (IsDetailBlocked(pt))
 			continue;
 
 		// Select a group based on the alpha value
